@@ -29,12 +29,16 @@
         app:layout_constraintStart_toStartOf="@id/tvCity"
         app:layout_constraintTop_toBottomOf="@id/tvCity" />
 
+
     <ImageView
         android:id="@+id/iBtnCloudy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toTopOf="@id/tvWind"
+        app:layout_constraintEnd_toStartOf="@+id/tvValueTemperature"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvChangeCity"
         tools:src="@drawable/ic_cloudy" />
@@ -44,8 +48,10 @@
         style="@style/TextWhite.VeryBig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@id/iBtnCloudy"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iBtnCloudy"
         app:layout_constraintTop_toTopOf="@id/iBtnCloudy"
         tools:text="14" />
@@ -121,23 +127,13 @@
         style="@style/GrayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_location"
+        android:gravity="center"
         android:text="@string/fragment_weather_my_location"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/tvChangeCity"
         app:layout_constraintEnd_toEndOf="@id/toggle"
         app:layout_constraintTop_toTopOf="@id/tvChangeCity" />
-
-    <ImageButton
-        android:id="@+id/iBtnIconLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/dark_blue"
-        android:padding="0dp"
-        android:src="@drawable/ic_location"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@id/tvMyLocation"
-        app:layout_constraintEnd_toStartOf="@id/tvMyLocation"
-        app:layout_constraintTop_toTopOf="@id/tvMyLocation" />
 
     <TextView
         android:id="@+id/tvValueHumidity"

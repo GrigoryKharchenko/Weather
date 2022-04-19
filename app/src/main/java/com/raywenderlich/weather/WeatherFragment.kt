@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.raywenderlich.weather.databinding.FragmentWeatherBinding
 
@@ -21,31 +22,36 @@ class WeatherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        changeCity()
-        clickDegreesListener()
-        clickLocation()
-    }
+        //создаем экземпляр класса WeatherViewModel
+        val viewModel: WeatherViewModel by viewModels()
+        //я вызываю метод loadUsers() у экземпляра класса WeatherViewModel
+//      viewModel.loadUsers()
+        //вызываю функции initOnClicks и  clickLocation без параметров
+        initOnClicks()
 
-    private fun showSnackBar(value: String) {
-        Snackbar.make(requireView(), value, Snackbar.LENGTH_SHORT).show()
-    }
-
-    private fun changeCity() {
-        binding?.tvChangeCity?.setOnClickListener {
-            showSnackBar("Сменить город")
+        viewModel.usersLiveData.observe(viewLifecycleOwner) {
+            binding?.tvWeather?.text = it.toString()
         }
     }
 
-    private fun clickDegreesListener() {
+    //объявляю метод showSnackBar с параметром типа стринг возвращам значение типа Unit
+    private fun showSnackBar(value: String) {
+        //(requireView()по стандарту во фрагментах,текст котооорой еадо отобразить,время длительности сооообщения)
+        Snackbar.make(requireView(), value, Snackbar.LENGTH_SHORT).show()
+    }
+
+    //обявление метода без параметров с возвращаемым значением Unit
+    private fun initOnClicks() {
         binding?.rbCelsius?.setOnClickListener {
+            // вызывается метоод showSnackBar с параметром типа стринг
             showSnackBar("C")
         }
         binding?.rbFahrenheit?.setOnClickListener {
             showSnackBar("F")
         }
-    }
-
-    private fun clickLocation() {
+        binding?.tvChangeCity?.setOnClickListener {
+            showSnackBar("Сменить город")
+        }
         binding?.tvMyLocation?.setOnClickListener {
             showSnackBar("Мое местополоожение")
         }

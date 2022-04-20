@@ -18,6 +18,7 @@ class WeatherFragment : Fragment() {
     ): View? {
         binding = FragmentWeatherBinding.inflate(layoutInflater)
         return binding?.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,13 +26,29 @@ class WeatherFragment : Fragment() {
         //создаем экземпляр класса WeatherViewModel
         val viewModel: WeatherViewModel by viewModels()
         //я вызываю метод loadUsers() у экземпляра класса WeatherViewModel
-//      viewModel.loadUsers()
-        //вызываю функции initOnClicks и  clickLocation без параметров
+//      viewModel.loadWeatherData()
+        //вызываю функции initOnClicks без параметров
         initOnClicks()
 
-        viewModel.usersLiveData.observe(viewLifecycleOwner) {
-            binding?.tvWeather?.text = it.toString()
+
+
+        viewModel.weatherLiveData.observe(viewLifecycleOwner) {
+            binding?.tvCity?.text = it.city
+            binding?.tvValueTemperature?.text = it.temperature.toString()
+            binding?.tvWeather?.text = it.weather
+            binding?.tvValueWind?.text = it.valueWind.toString()
+            binding?.tvValuePressure?.text = it.valuePressure.toString()
+            binding?.tvValueHumidity?.text = it.valueHumidity.toString()
+            binding?.tvValueChanceRain?.text = it.valueChanceRain.toString()
+            setData(it)
         }
+    }
+
+    private fun setData(value:WeatherModel){
+        binding?.tvValueHumidity?.text = getString(R.string.fragment_weather_value_humidity,value.valueHumidity.toString())
+        binding?.tvValueChanceRain?.text = getString(R.string.fragment_weather_value_chance_rain,value.valueChanceRain.toString())
+        binding?.tvValuePressure?.text = getString(R.string.fragment_weather_value_pressure,value.valuePressure.toString())
+        binding?.tvValueWind?.text = getString(R.string.fragment_weather_value_wind,value.valueWind.toString())
     }
 
     //объявляю метод showSnackBar с параметром типа стринг возвращам значение типа Unit
@@ -50,11 +67,18 @@ class WeatherFragment : Fragment() {
             showSnackBar("F")
         }
         binding?.tvChangeCity?.setOnClickListener {
-            showSnackBar("Сменить город")
+            openFragmentCity()
         }
         binding?.tvMyLocation?.setOnClickListener {
             showSnackBar("Мое местополоожение")
         }
+    }
+
+    private fun openFragmentCity() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.container, CityFragment.newInstance(), CityFragment.TAG)
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {
@@ -62,4 +86,5 @@ class WeatherFragment : Fragment() {
 
         fun newInstance() = WeatherFragment()
     }
+
 }

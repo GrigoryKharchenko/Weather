@@ -29,42 +29,17 @@
         app:layout_constraintStart_toStartOf="@id/tvCity"
         app:layout_constraintTop_toBottomOf="@id/tvCity" />
 
-
-    <ImageView
-        android:id="@+id/iBtnCloudy"
+    <ImageButton
+        android:id="@+id/iBtnTemperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintBottom_toTopOf="@id/tvWind"
-        app:layout_constraintEnd_toStartOf="@+id/tvValueTemperature"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvChangeCity"
-        tools:src="@drawable/ic_cloudy" />
-
-    <TextView
-        android:id="@+id/tvValueTemperature"
-        style="@style/TextWhite.VeryBig"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/iBtnCloudy"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/iBtnCloudy"
-        app:layout_constraintTop_toTopOf="@id/iBtnCloudy"
-        tools:text="14" />
-
-    <TextView
-        android:id="@+id/tvWeather"
-        style="@style/TextWhite.Big"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/tvValueTemperature"
-        app:layout_constraintStart_toStartOf="@id/iBtnCloudy"
-        app:layout_constraintTop_toBottomOf="@id/iBtnCloudy"
-        tools:text="Дождь" />
+        android:layout_marginEnd="8dp"
+        android:background="@color/dark_blue"
+        android:src="@drawable/ic_temperature"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/toggle"
+        app:layout_constraintEnd_toStartOf="@id/toggle"
+        app:layout_constraintTop_toTopOf="@+id/toggle" />
 
     <RadioGroup
         android:id="@+id/toggle"
@@ -110,18 +85,6 @@
             android:textColor="@color/white" />
     </RadioGroup>
 
-    <ImageButton
-        android:id="@+id/iBtnTemperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="@color/dark_blue"
-        android:src="@drawable/ic_temperature"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@id/toggle"
-        app:layout_constraintEnd_toStartOf="@id/toggle"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/tvMyLocation"
         style="@style/GrayTextView"
@@ -134,92 +97,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/tvChangeCity"
         app:layout_constraintEnd_toEndOf="@id/toggle"
         app:layout_constraintTop_toTopOf="@id/tvChangeCity" />
-
-    <TextView
-        android:id="@+id/tvValueHumidity"
-        style="@style/TextWhite.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="60%" />
-
-    <TextView
-        android:id="@+id/tvHumidity"
-        style="@style/GrayTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="4dp"
-        android:text="@string/fragment_weather_humidity"
-        app:layout_constraintBottom_toTopOf="@id/tvValueHumidity"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvValueChanceRain"
-        style="@style/TextWhite.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tvChanceRain"
-        tools:text="10%" />
-
-    <TextView
-        android:id="@+id/tvChanceRain"
-        style="@style/GrayTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="4dp"
-        android:text="@string/fragment_weather_chance_rain"
-        app:layout_constraintBottom_toTopOf="@id/tvValueChanceRain"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/tvValuePressure"
-        style="@style/TextWhite.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        app:layout_constraintBottom_toTopOf="@id/tvChanceRain"
-        app:layout_constraintStart_toStartOf="@id/tvChanceRain"
-        tools:text="752 мм рт.ст." />
-
-    <TextView
-        android:id="@+id/tvPressure"
-        style="@style/GrayTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="4dp"
-        android:text="@string/fragment_weather_pressure"
-        app:layout_constraintBottom_toTopOf="@id/tvValuePressure"
-        app:layout_constraintStart_toStartOf="@id/tvValuePressure" />
-
-    <TextView
-        android:id="@+id/tvValueWind"
-        style="@style/TextWhite.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="36dp"
-        app:layout_constraintBottom_toTopOf="@id/tvHumidity"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="5 м/с, западный" />
-
-    <TextView
-        android:id="@+id/tvWind"
-        style="@style/GrayTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="4dp"
-        android:text="@string/fragment_weather_wind"
-        app:layout_constraintBottom_toTopOf="@id/tvValueWind"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutSelectLocation"
@@ -256,5 +133,136 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/iBtnCloudy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvValueTemperature"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_cloudy" />
+
+    <TextView
+        android:id="@+id/tvValueTemperature"
+        style="@style/TextWhite.VeryBig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/iBtnCloudy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iBtnCloudy"
+        app:layout_constraintTop_toTopOf="@id/iBtnCloudy"
+        tools:text="14" />
+
+    <TextView
+        android:id="@+id/tvWeather"
+        style="@style/TextWhite.Big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvValueTemperature"
+        tools:text="Дождь" />
+
+    <TextView
+        android:id="@+id/tvValueHumidity"
+        style="@style/TextWhite.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvValueChanceRain"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="60%" />
+
+    <TextView
+        android:id="@+id/tvHumidity"
+        style="@style/GrayTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/fragment_weather_humidity"
+        app:layout_constraintBottom_toTopOf="@id/tvValueHumidity"
+        app:layout_constraintEnd_toStartOf="@+id/tvChanceRain"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvValueChanceRain"
+        style="@style/TextWhite.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvChanceRain"
+        tools:text="10%" />
+
+    <TextView
+        android:id="@+id/tvChanceRain"
+        style="@style/GrayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/fragment_weather_chance_rain"
+        app:layout_constraintBottom_toTopOf="@id/tvValueChanceRain"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvValuePressure"
+        style="@style/TextWhite.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@id/tvChanceRain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvChanceRain"
+        tools:text="752 мм рт.ст." />
+
+    <TextView
+        android:id="@+id/tvPressure"
+        style="@style/GrayTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/fragment_weather_pressure"
+        app:layout_constraintBottom_toTopOf="@id/tvValuePressure"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvValuePressure" />
+
+    <TextView
+        android:id="@+id/tvValueWind"
+        style="@style/TextWhite.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="36dp"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@id/tvHumidity"
+        app:layout_constraintEnd_toStartOf="@id/tvValuePressure"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="5 м/с, западный" />
+
+    <TextView
+        android:id="@+id/tvWind"
+        style="@style/GrayTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/fragment_weather_wind"
+        app:layout_constraintBottom_toTopOf="@id/tvValueWind"
+        app:layout_constraintEnd_toStartOf="@+id/tvPressure"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

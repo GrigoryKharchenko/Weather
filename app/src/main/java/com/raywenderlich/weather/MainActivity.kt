@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentTransaction
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.SplashTheme)
+        setTheme(R.style.Theme_Weather)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

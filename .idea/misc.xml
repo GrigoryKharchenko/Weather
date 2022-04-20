@@ -17,8 +17,10 @@
         <entry key="..\:/Users/nick1/Documents/GitHub/Weather/app/src/main/res/drawable/splash_screen_weather.xml" value="0.213" />
         <entry key="..\:/Users/nick1/Documents/GitHub/Weather/app/src/main/res/drawable/toggle_bg_radio_button.xml" value="0.1795" />
         <entry key="..\:/Users/nick1/Documents/GitHub/Weather/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/nick1/Documents/GitHub/Weather/app/src/main/res/layout/fragment_city.xml" value="0.2861328125" />
         <entry key="..\:/Users/nick1/Documents/GitHub/Weather/app/src/main/res/layout/fragment_splash_weather.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/nick1/Documents/GitHub/Weather/app/src/main/res/layout/fragment_weather.xml" value="0.22" />
+        <entry key="..\:/Users/nick1/Documents/GitHub/Weather/app/src/main/res/layout/fragment_weather.xml" value="0.33" />
+        <entry key="..\:/Users/nick1/Documents/GitHub/Weather/app/src/main/res/layout/item_city.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/nick1/Documents/GitHub/Weather/app/src/main/res/layout/radio_flat_selector.xml" value="0.36666666666666664" />
         <entry key="..\:/study/Weather/app/src/main/res/layout/activity_main.xml" value="0.30925925925925923" />
         <entry key="..\:/study/Weather/app/src/main/res/layout/fragment_weather.xml" value="0.30925925925925923" />

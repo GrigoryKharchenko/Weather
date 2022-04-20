@@ -6,15 +6,23 @@ import androidx.lifecycle.MutableLiveData
 
 class WeatherViewModel : BaseViewModel() {
 
-    private val users = MutableLiveData<List<String>>()
+    private val weatherData = MutableLiveData<WeatherModel>()
 
-    val usersLiveData: LiveData<List<String>> = users
+    val weatherLiveData: LiveData<WeatherModel> = weatherData
 
     init {
-        loadUsers()
+        loadWeatherData()
     }
 
-     fun loadUsers() {
-        users.value = listOf("Nikita", "Anton")
+    fun loadWeatherData() {
+        weatherData.value = WeatherModel(
+            city = "Omsk",
+            temperature = 14,
+            weather = "Rain",
+            valueWind = 5,
+            valuePressure = 752,
+            valueHumidity = 60,
+            valueChanceRain = 10
+        )
     }
 }

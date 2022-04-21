@@ -54,4 +54,10 @@
         <item name="android:windowBackground">@drawable/splash_screen_weather</item>
     </style>
 
+    <style name="TextWhite.RadioButton">
+        <item name="android:button">@null</item>
+        <item name="android:checked">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

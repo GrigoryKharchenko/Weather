@@ -3,7 +3,7 @@ package com.raywenderlich.weather
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-class CItyViewModel : BaseViewModel() {
+class CityViewModel : BaseViewModel() {
 
     private val cites = MutableLiveData<List<String>>()
     val citesLiveData: LiveData<List<String>> = cites

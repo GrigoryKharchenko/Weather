@@ -30,25 +30,28 @@ class WeatherFragment : Fragment() {
         //вызываю функции initOnClicks без параметров
         initOnClicks()
 
-
-
-        viewModel.weatherLiveData.observe(viewLifecycleOwner) {
-            binding?.tvCity?.text = it.city
-            binding?.tvValueTemperature?.text = it.temperature.toString()
-            binding?.tvWeather?.text = it.weather
-            binding?.tvValueWind?.text = it.valueWind.toString()
-            binding?.tvValuePressure?.text = it.valuePressure.toString()
-            binding?.tvValueHumidity?.text = it.valueHumidity.toString()
-            binding?.tvValueChanceRain?.text = it.valueChanceRain.toString()
-            setData(it)
+        viewModel.weatherLiveData.observe(viewLifecycleOwner) { weatherModel ->
+            setData(weatherModel)
         }
     }
 
-    private fun setData(value:WeatherModel){
-        binding?.tvValueHumidity?.text = getString(R.string.fragment_weather_value_humidity,value.valueHumidity.toString())
-        binding?.tvValueChanceRain?.text = getString(R.string.fragment_weather_value_chance_rain,value.valueChanceRain.toString())
-        binding?.tvValuePressure?.text = getString(R.string.fragment_weather_value_pressure,value.valuePressure.toString())
-        binding?.tvValueWind?.text = getString(R.string.fragment_weather_value_wind,value.valueWind.toString())
+    private fun setData(value: WeatherModel) {
+        binding?.let { fragmentWeatherBinding ->
+            fragmentWeatherBinding.tvValueHumidity.text =
+                getString(R.string.fragment_weather_value_humidity, value.valueHumidity.toString())
+            fragmentWeatherBinding.tvValueChanceRain.text =
+                getString(R.string.fragment_weather_value_chance_rain, value.valueChanceRain.toString())
+            fragmentWeatherBinding.tvValuePressure.text =
+                getString(R.string.fragment_weather_value_pressure, value.valuePressure.toString())
+            fragmentWeatherBinding.tvValueWind.text =
+                getString(R.string.fragment_weather_value_wind, value.valueWind.toString())
+            fragmentWeatherBinding.tvCity.text =
+                getString(R.string.fragment_weather_city, value.city)
+            fragmentWeatherBinding.tvValueTemperature.text =
+                getString(R.string.fragment_weather_temperature, value.temperature.toString())
+            fragmentWeatherBinding.tvWeather.text =
+                getString(R.string.fragment_weather, value.weather)
+        }
     }
 
     //объявляю метод showSnackBar с параметром типа стринг возвращам значение типа Unit
@@ -59,18 +62,20 @@ class WeatherFragment : Fragment() {
 
     //обявление метода без параметров с возвращаемым значением Unit
     private fun initOnClicks() {
-        binding?.rbCelsius?.setOnClickListener {
-            // вызывается метоод showSnackBar с параметром типа стринг
-            showSnackBar("C")
-        }
-        binding?.rbFahrenheit?.setOnClickListener {
-            showSnackBar("F")
-        }
-        binding?.tvChangeCity?.setOnClickListener {
-            openFragmentCity()
-        }
-        binding?.tvMyLocation?.setOnClickListener {
-            showSnackBar("Мое местополоожение")
+        binding?.let {
+            it.rbCelsius.setOnClickListener {
+                // вызывается метоод showSnackBar с параметром типа стринг
+                showSnackBar("C")
+            }
+            it.rbFahrenheit.setOnClickListener {
+                showSnackBar("F")
+            }
+            it.tvChangeCity.setOnClickListener {
+                openFragmentCity()
+            }
+            it.tvMyLocation.setOnClickListener {
+                showSnackBar(R.string.fragment_weather_my_location.toString())
+            }
         }
     }
 

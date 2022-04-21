@@ -17,17 +17,19 @@ class CityFragment : Fragment() {
     ): View? {
         binding = FragmentCityBinding.inflate(layoutInflater)
         return binding?.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel: CItyViewModel by viewModels()
+        val viewModel: CityViewModel by viewModels()
         viewModel.loadCites()
 
         viewModel.citesLiveData.observe(viewLifecycleOwner) {
             binding?.rvCites?.adapter = CityAdapter(it)
         }
     }
+
     companion object {
         const val TAG = "FragmentCity"
 

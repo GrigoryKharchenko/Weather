@@ -21,7 +21,7 @@ class WeatherViewModel : BaseViewModel() {
             weather = "Rain",
             valueWind = 5,
             valuePressure = 752,
-            valueHumidity = 60,
+            valueHumidity = 70,
             valueChanceRain = 10
         )
     }

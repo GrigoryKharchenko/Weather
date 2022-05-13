@@ -29,29 +29,6 @@ class WeatherFragment : Fragment() {
 //      viewModel.loadWeatherData()
         //вызываю функции initOnClicks без параметров
         initOnClicks()
-
-        viewModel.weatherLiveData.observe(viewLifecycleOwner) { weatherModel ->
-            setData(weatherModel)
-        }
-    }
-
-    private fun setData(value: WeatherModel) {
-        binding?.let { fragmentWeatherBinding ->
-            fragmentWeatherBinding.tvValueHumidity.text =
-                getString(R.string.fragment_weather_value_humidity, value.valueHumidity.toString())
-            fragmentWeatherBinding.tvValueChanceRain.text =
-                getString(R.string.fragment_weather_value_chance_rain, value.valueChanceRain.toString())
-            fragmentWeatherBinding.tvValuePressure.text =
-                getString(R.string.fragment_weather_value_pressure, value.valuePressure.toString())
-            fragmentWeatherBinding.tvValueWind.text =
-                getString(R.string.fragment_weather_value_wind, value.valueWind.toString())
-            fragmentWeatherBinding.tvCity.text =
-                getString(R.string.fragment_weather_city, value.city)
-            fragmentWeatherBinding.tvValueTemperature.text =
-                getString(R.string.fragment_weather_temperature, value.temperature.toString())
-            fragmentWeatherBinding.tvWeather.text =
-                getString(R.string.fragment_weather, value.weather)
-        }
     }
 
     //объявляю метод showSnackBar с параметром типа стринг возвращам значение типа Unit
@@ -70,20 +47,10 @@ class WeatherFragment : Fragment() {
             it.rbFahrenheit.setOnClickListener {
                 showSnackBar("F")
             }
-            it.tvChangeCity.setOnClickListener {
-                openFragmentCity()
-            }
             it.tvMyLocation.setOnClickListener {
                 showSnackBar(R.string.fragment_weather_my_location.toString())
             }
         }
-    }
-
-    private fun openFragmentCity() {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .add(R.id.container, CityFragment.newInstance(), CityFragment.TAG)
-            .addToBackStack(null)
-            .commit()
     }
 
     companion object {

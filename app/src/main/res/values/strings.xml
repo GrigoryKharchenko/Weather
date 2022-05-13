@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">Weather</string>
+
+    <!--    fragment_weather-->
+    <string name="fragment_weather_city">%1$s</string>
+    <string name="fragment_weather_change_city">Сменить город</string>
+    <string name="fragment_weather_my_location">Мое местоположение</string>
+    <string name="fragment_weather_fahrenheit">F</string>
+    <string name="fragment_weather_celsius">C</string>
+    <string name="fragment_weather_value_humidity">%1$s %%</string>
+    <string name="fragment_weather_humidity">Влажноость</string>
+    <string name="fragment_weather_chance_rain">Вероятность дождя</string>
+    <string name="fragment_weather_value_chance_rain">%1$s %%</string>
+    <string name="fragment_weather_pressure">Давление</string>
+    <string name="fragment_weather_value_pressure">%1$s мм рт.ст.</string>
+    <string name="fragment_weather_value_wind">%1$s м/с, западный</string>
+    <string name="fragment_weather_wind">Ветер</string>
+    <string name="fragment_weather_ok">OK</string>
+    <string name="fragment_weather_c">C</string>
+    <string name="fragment_weather_f">F</string>
+    <string name="fragment_weather_temperature">%1$s</string>
+    <string name="fragment_weather">%1$s</string>
+    <!--    fragment_weather-->
+
 </resources>

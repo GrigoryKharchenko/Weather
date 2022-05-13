@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Weather" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Weather" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -13,4 +13,51 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="TextWhite">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextWhite.Big">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="TextWhite.Small">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="GrayTextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:alpha">0.6</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextWhite.VeryBig">
+        <item name="android:textSize">84sp</item>
+    </style>
+
+    <style name="TextBlack">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextBlue">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextWhite.City">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="Theme.Weather.Launcher">
+        <item name="android:windowBackground">@drawable/splash_screen_weather</item>
+    </style>
+
+    <style name="TextWhite.RadioButton">
+        <item name="android:button">@null</item>
+        <item name="android:checked">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

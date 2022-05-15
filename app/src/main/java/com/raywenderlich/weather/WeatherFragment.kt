@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.raywenderlich.weather.databinding.FragmentWeatherBinding
 
@@ -18,7 +19,6 @@ class WeatherFragment : Fragment() {
     ): View? {
         binding = FragmentWeatherBinding.inflate(layoutInflater)
         return binding?.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,6 +29,34 @@ class WeatherFragment : Fragment() {
 //      viewModel.loadWeatherData()
         //вызываю функции initOnClicks без параметров
         initOnClicks()
+
+        viewModel.weatherLiveData.observe(viewLifecycleOwner) {
+            binding?.tvCity?.text = it.city
+            binding?.tvValueTemperature?.text = it.temperature.toString()
+            binding?.tvWeather?.text = it.weather
+            binding?.tvValueWind?.text = it.valueWind.toString()
+            binding?.tvValuePressure?.text = it.valuePressure.toString()
+            binding?.tvValueHumidity?.text = it.valueHumidity.toString()
+            binding?.tvValueChanceRain?.text = it.valueChanceRain.toString()
+            setData(it)
+        }
+
+        binding?.let {
+            Glide.with(this)
+                .load("https://square.github.io/picasso/static/sample.png")
+                .into(it.iBtnCloudy)
+        }
+    }
+
+    private fun setData(value: WeatherModel) {
+        binding?.tvValueHumidity?.text =
+            getString(R.string.fragment_weather_value_humidity, value.valueHumidity.toString())
+        binding?.tvValueChanceRain?.text =
+            getString(R.string.fragment_weather_value_chance_rain, value.valueChanceRain.toString())
+        binding?.tvValuePressure?.text =
+            getString(R.string.fragment_weather_value_pressure, value.valuePressure.toString())
+        binding?.tvValueWind?.text =
+            getString(R.string.fragment_weather_value_wind, value.valueWind.toString())
     }
 
     //объявляю метод showSnackBar с параметром типа стринг возвращам значение типа Unit

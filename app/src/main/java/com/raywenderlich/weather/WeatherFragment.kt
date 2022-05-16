@@ -39,7 +39,6 @@ class WeatherFragment : Fragment() {
                 .load("")
                 .into(it.iBtnCloudy)
         }
-
     }
 
     private fun setData(value: WeatherModel) {

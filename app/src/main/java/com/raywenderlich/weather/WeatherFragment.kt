@@ -30,33 +30,35 @@ class WeatherFragment : Fragment() {
         //вызываю функции initOnClicks без параметров
         initOnClicks()
 
-        viewModel.weatherLiveData.observe(viewLifecycleOwner) {
-            binding?.tvCity?.text = it.city
-            binding?.tvValueTemperature?.text = it.temperature.toString()
-            binding?.tvWeather?.text = it.weather
-            binding?.tvValueWind?.text = it.valueWind.toString()
-            binding?.tvValuePressure?.text = it.valuePressure.toString()
-            binding?.tvValueHumidity?.text = it.valueHumidity.toString()
-            binding?.tvValueChanceRain?.text = it.valueChanceRain.toString()
+        viewModel.liveData.observe(viewLifecycleOwner) {
             setData(it)
         }
 
         binding?.let {
             Glide.with(this)
-                .load("https://square.github.io/picasso/static/sample.png")
+                .load("")
                 .into(it.iBtnCloudy)
         }
+
     }
 
     private fun setData(value: WeatherModel) {
-        binding?.tvValueHumidity?.text =
-            getString(R.string.fragment_weather_value_humidity, value.valueHumidity.toString())
-        binding?.tvValueChanceRain?.text =
-            getString(R.string.fragment_weather_value_chance_rain, value.valueChanceRain.toString())
-        binding?.tvValuePressure?.text =
-            getString(R.string.fragment_weather_value_pressure, value.valuePressure.toString())
-        binding?.tvValueWind?.text =
-            getString(R.string.fragment_weather_value_wind, value.valueWind.toString())
+        binding?.let {
+            it.tvValueHumidity.text =
+                getString(R.string.fragment_weather_value_humidity, value.valueHumidity.toString())
+            it.tvValueChanceRain.text =
+                getString(
+                    R.string.fragment_weather_value_chance_rain,
+                    value.valueChanceRain.toString()
+                )
+            it.tvValuePressure.text =
+                getString(R.string.fragment_weather_value_pressure, value.valuePressure.toString())
+            it.tvValueWind.text =
+                getString(R.string.fragment_weather_value_wind, value.valueWind.toString())
+            it.tvCity.text = value.city
+            it.tvValueTemperature.text = value.temperature.toString()
+            it.tvWeather.text = value.weather
+        }
     }
 
     //объявляю метод showSnackBar с параметром типа стринг возвращам значение типа Unit
@@ -86,5 +88,4 @@ class WeatherFragment : Fragment() {
 
         fun newInstance() = WeatherFragment()
     }
-
 }

@@ -1,11 +1,11 @@
 package com.raywenderlich.weather
 
 data class WeatherModel(
-    val city: String,
-    val temperature: Int,
-    val weather: String,
-    val valueWind: Int,
-    val valuePressure: Int,
-    val valueHumidity: Int,
-    val valueChanceRain: Int,
+    val city: String? = null,
+    val temperature: Int? = null,
+    val weather: String? = null,
+    val valueWind: Int? = null,
+    val valuePressure: Int? = null,
+    val valueHumidity: Int? = null,
+    val valueChanceRain: Int? = null,
 )

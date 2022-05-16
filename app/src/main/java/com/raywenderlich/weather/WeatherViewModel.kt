@@ -5,16 +5,16 @@ import androidx.lifecycle.MutableLiveData
 
 class WeatherViewModel : BaseViewModel() {
 
-    private val weatherData = MutableLiveData<WeatherModel>()
+    private val weatherLiveData = MutableLiveData<WeatherModel>()
 
-    val weatherLiveData: LiveData<WeatherModel> = weatherData
+    val liveData: LiveData<WeatherModel> = weatherLiveData
 
     init {
         loadWeatherData()
     }
 
-    fun loadWeatherData() {
-        weatherData.value = WeatherModel(
+    private fun loadWeatherData() {
+        weatherLiveData.value = WeatherModel(
             "Omsk",
             14, "Rain",
             5,

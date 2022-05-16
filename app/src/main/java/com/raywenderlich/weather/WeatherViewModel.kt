@@ -48,6 +48,7 @@ class WeatherViewModel : BaseViewModel() {
                 Log.d("Movie", "Error = ${t?.localizedMessage}")
 
             }
+
         })
     }
 }

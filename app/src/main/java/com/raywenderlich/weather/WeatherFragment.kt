@@ -36,13 +36,13 @@ class WeatherFragment : Fragment() {
 
     private fun setData(value: WeatherResponse) {
         binding?.run {
-            tvValueHumidity.text = value.main.humidity.toString()
-            tvValueChanceRain.text = value.clouds.all.toString()
-            tvValuePressure.text = value.main.pressure.toString()
+            tvValueHumidity.text = getString(R.string.fragment_weather_value_humidity,value.main.humidity.toString())
+            tvValueChanceRain.text = getString(R.string.fragment_weather_value_chance_rain,value.clouds.all.toString())
+            tvValuePressure.text = getString(R.string.fragment_weather_value_pressure,value.main.pressure)
             tvValueWind.text = value.wind.speed.toString()
             tvCity.text = value.name
             tvValueTemperature.text = value.main.temp.toString()
-            tvWeather.text = value.weather[0].main
+            tvWeather.text = value.weather[0].description
             Glide.with(iBtnCloudy)
                 .load("http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png")
                 .into(iBtnCloudy)

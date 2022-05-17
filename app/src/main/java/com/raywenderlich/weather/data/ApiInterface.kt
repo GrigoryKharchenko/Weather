@@ -7,16 +7,17 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 
 interface ApiInterface {
     @GET("data/2.5/weather?lat=35&lon=139&appid=b021ca9525ae87d6f27e414354290f9f")
-    fun getWeather(): Call<WeatherResponse>
+    fun getWeather( @Query("lang")lang:String = "ru" ): Call<WeatherResponse>
 
     companion object {
 
-        private const val BASE_URL = "https://samples.openweathermap.org/"
+        private const val BASE_URL = "https://api.openweathermap.org/"
 
         fun create(): ApiInterface {
             val retrofit = Retrofit.Builder()

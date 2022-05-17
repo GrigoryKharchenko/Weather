@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.raywenderlich.weather.data.ApiInterface
+import com.raywenderlich.weather.data.CoordResponse
 import com.raywenderlich.weather.data.WeatherResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -11,28 +12,13 @@ import retrofit2.Response
 
 class WeatherViewModel : BaseViewModel() {
 
-    private val weatherLiveData = MutableLiveData<WeatherModel>()
-
-    val liveData: LiveData<WeatherModel> = weatherLiveData
+    val weatherLiveData = MutableLiveData<WeatherResponse>()
 
     init {
-        loadWeatherData()
-        getMovie()
+        getWeather()
     }
 
-    private fun loadWeatherData() {
-        weatherLiveData.value = WeatherModel(
-            "Omsk",
-            14.0,
-            "Rain",
-            5.0,
-            752.0,
-            60.0,
-            10
-        )
-    }
-
-    fun getMovie() {
+    fun getWeather() {
         val apiInterface = ApiInterface.create().getWeather()
         apiInterface.enqueue(object : Callback<WeatherResponse> {
             override fun onResponse(
@@ -41,6 +27,7 @@ class WeatherViewModel : BaseViewModel() {
             ) {
                 if (response?.body() != null) {
                     Log.d("Movie", "Response body = ${response.body()}")
+                    weatherLiveData.value = response.body()
                 }
             }
 

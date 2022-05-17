@@ -1,7 +1,7 @@
 package com.raywenderlich.weather.data
 
 import com.google.gson.annotations.SerializedName
-
+// парсинг данных из json
 data class WeatherResponse(
     @SerializedName("coord") val coord:CoordResponse,
     @SerializedName("weather") val weather:List<Weather>,

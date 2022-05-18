@@ -18,7 +18,7 @@ class WeatherViewModel : BaseViewModel() {
         getWeather()
     }
 
-    fun getWeather() {
+    private fun getWeather() {
         val apiInterface = ApiInterface.create().getWeather()
         apiInterface.enqueue(object : Callback<WeatherResponse> {
             override fun onResponse(

@@ -164,7 +164,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvValueTemperature"
-        tools:text="Дождь" />
+        tools:text="Дождь"
+        android:layout_marginHorizontal="16dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"

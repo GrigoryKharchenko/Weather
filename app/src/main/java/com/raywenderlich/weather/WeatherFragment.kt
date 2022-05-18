@@ -1,5 +1,6 @@
 package com.raywenderlich.weather
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -46,18 +47,18 @@ class WeatherFragment : Fragment() {
         if (checkPermission()) {
 
             if (isLocationEnabled()) {
-                if (ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        android.Manifest.permission.ACCESS_FINE_LOCATION
-                    )
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    requestPermission()
-                    return
-                }
+//                if (ActivityCompat.checkSelfPermission(
+//                        requireContext(),
+//                        Manifest.permission.ACCESS_FINE_LOCATION
+//                    )
+//                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                        requireContext(),
+//                        Manifest.permission.ACCESS_COARSE_LOCATION
+//                    ) != PackageManager.PERMISSION_GRANTED
+//                ) {
+//                    requestPermission()
+//                    return
+//                }
 
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
                     val location: Location? = task.result
@@ -65,8 +66,9 @@ class WeatherFragment : Fragment() {
                         Toast.makeText(requireContext(), "Null", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(requireContext(), "Get", Toast.LENGTH_SHORT).show()
-//                        tvLat.text = "" + location.latitude
-//                        tvLong.text = "" + location.longitude
+
+                        Log.d("Long","location = ${location.latitude}")
+                        Log.d("Long","long = ${location.longitude}")
                     }
                 }
 
@@ -79,7 +81,7 @@ class WeatherFragment : Fragment() {
             requestPermission()
         }
     }
-
+// проверяет включен ли GPS на телефоне
     private fun isLocationEnabled(): Boolean {
         val locationManager: LocationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -91,8 +93,8 @@ class WeatherFragment : Fragment() {
     private fun requestPermission() {
         ActivityCompat.requestPermissions(
             requireActivity(), arrayOf(
-                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
             ), PERMISSION_REQUEST_ACCESS_LOCATION
         )
     }
@@ -100,11 +102,11 @@ class WeatherFragment : Fragment() {
     private fun checkPermission(): Boolean {
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(
                 requireActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             return true

@@ -28,6 +28,7 @@ class WeatherViewModel : BaseViewModel() {
                 if (response?.body() != null) {
                     Log.d("Movie", "Response body = ${response.body()}")
                     weatherLiveData.value = response.body()
+
                 }
             }
 

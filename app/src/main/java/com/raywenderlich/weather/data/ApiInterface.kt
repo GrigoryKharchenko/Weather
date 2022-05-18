@@ -12,8 +12,12 @@ import java.util.concurrent.TimeUnit
 
 
 interface ApiInterface {
-    @GET("data/2.5/weather?lat=35&lon=139&appid=b021ca9525ae87d6f27e414354290f9f")
-    fun getWeather( @Query("lang")lang:String = "ru" ): Call<WeatherResponse>
+    @GET("data/2.5/weather?appid=b021ca9525ae87d6f27e414354290f9f")
+    fun getWeather(
+        @Query("lon") lon: Float,
+        @Query("lat") lat: Float,
+        @Query("lang") lang: String = "ru"
+    ): Call<WeatherResponse>
 
     companion object {
 

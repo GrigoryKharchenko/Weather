@@ -10,7 +10,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
-
 interface ApiInterface {
     //запрашиваю данные с ресурса
     @GET("data/2.5/weather?appid=b021ca9525ae87d6f27e414354290f9f")
@@ -24,8 +23,7 @@ interface ApiInterface {
 
     companion object {
         //значение известно во время компиляции
-        private const val BASE_URL = "https://api.openweathermap.org/"
-
+        private const val BASE_URL = "http://api.openweathermap.org/"
         // метод c типом ApiInterface
         fun create(): ApiInterface {
             //создается неизменяемый объект
@@ -40,14 +38,13 @@ interface ApiInterface {
             // воозвращает готовый ретрофит
             return retrofit.create(ApiInterface::class.java)
         }
-
         //предоставление для okhttp
         private fun provideOkHttpClient(): OkHttpClient {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             val client = OkHttpClient().newBuilder()
                 //время ожидания соединения период времени, в течение которого должно установиться соединение с целевым хостом
-                .connectTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
                 //Тайм-аут чтения применяется с момента успешного установления соединения между клиентом и целевым хостом.
                 //Он определяет максимальное время бездействия между двумя пакетами данных при ожидании ответа сервера
                 .readTimeout(90, TimeUnit.SECONDS)

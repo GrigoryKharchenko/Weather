@@ -12,9 +12,9 @@ class WeatherViewModel : BaseViewModel() {
     // изменяемый список который берет данные из WeatherResponse
     val weatherLiveData = MutableLiveData<WeatherResponse>()
     //метод с параметрами долготы и широты
-     fun getWeather(lon:Float,lan:Float) {
+    fun getWeather(lon: Float, lan: Float) {
         // реализация интерфейса которому передаются 2 параметра
-        val apiInterface = ApiInterface.create().getWeather(lat = lan,lon = lon)
+        val apiInterface = ApiInterface.create().getWeather(lat = lan, lon = lon)
         apiInterface.enqueue(object : Callback<WeatherResponse> {
             override fun onResponse(
                 call: Call<WeatherResponse>?,

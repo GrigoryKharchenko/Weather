@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
+import com.raywenderlich.weather.data.ConvertTemperature
 import com.raywenderlich.weather.data.WeatherResponse
 import com.raywenderlich.weather.databinding.FragmentWeatherBinding
 
@@ -37,20 +38,29 @@ class WeatherFragment : Fragment() {
         // экземпляр клиента службы определения местооположения
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireContext())
-
         getCurrentLocation()
-
         binding = FragmentWeatherBinding.inflate(layoutInflater)
         return binding?.root
     }
+
     // получение текущего местоопооложения
     private fun getCurrentLocation() {
         //если выполняется проверка разрешений
         if (checkPermission()) {
-
             //если GPS включен на телефоне то выполняется
             if (isLocationEnabled()) {
-
+                if (ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) !=
+                    PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    requestPermission()
+                    return
+                }
                 //запрос на последнее местоположение,затем возвращает значение в данном случае task
                 // это значение можно использовать для получения локации объекта
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
@@ -105,7 +115,8 @@ class WeatherFragment : Fragment() {
             requireActivity(), arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ), PERMISSION_REQUEST_ACCESS_LOCATION
+            ),
+            PERMISSION_REQUEST_ACCESS_LOCATION
         )
     }
 
@@ -134,7 +145,7 @@ class WeatherFragment : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-      //доступ к методу который находится в суперклассе Fragment
+        //доступ к методу который находится в суперклассе Fragment
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         //если
         if (requestCode == PERMISSION_REQUEST_ACCESS_LOCATION) {
@@ -168,7 +179,9 @@ class WeatherFragment : Fragment() {
             tvValueWind.text =
                 getString(R.string.fragment_weather_value_wind, value.wind.speed.toString())
             tvCity.text = value.name
-            tvValueTemperature.text = value.main.temp.toString()
+            tvValueTemperature.text =
+                ConvertTemperature.convertInFahrenheit(viewModel.weatherLiveData.value?.main!!.temp)
+                    .toString()
             tvWeather.text = value.weather[0].description
             Glide.with(iBtnCloudy)
                 .load("http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png")
@@ -178,21 +191,29 @@ class WeatherFragment : Fragment() {
 
     //объявляю метод showSnackBar с параметром типа стринг возвращам значение типа Unit
     private fun showSnackBar(value: String) {
-        //(requireView()по стандарту во фрагментах,текст котооорой еадо отобразить,время длительности сооообщения)
+        //(requireView()по стандарту во фрагментах,текст котооорой надо отобразить,время длительности сооообщения)
         Snackbar.make(requireView(), value, Snackbar.LENGTH_SHORT).show()
     }
 
     //обявление метода без параметров с возвращаемым значением Unit
     private fun initOnClicks() {
-        binding?.let {
-            it.rbCelsius.setOnClickListener {
+        binding?.run {
+            rbCelsius.setOnClickListener {
                 // вызывается метоод showSnackBar с параметром типа стринг
                 showSnackBar("C")
+                tvValueTemperature.text = viewModel.weatherLiveData.value?.main?.let { it1 ->
+                    ConvertTemperature.convertInCelsius(
+                        it1.temp
+                    ).toString()
+                }
             }
-            it.rbFahrenheit.setOnClickListener {
+            rbFahrenheit.setOnClickListener {
                 showSnackBar("F")
+                tvValueTemperature.text =
+                    ConvertTemperature.convertInFahrenheit(viewModel.weatherLiveData.value?.main!!.temp)
+                        .toString()
             }
-            it.tvMyLocation.setOnClickListener {
+            tvMyLocation.setOnClickListener {
                 showSnackBar(getString(R.string.fragment_weather_my_location))
             }
         }
@@ -200,8 +221,7 @@ class WeatherFragment : Fragment() {
 
     companion object {
         const val TAG = "WeatherFragment"
-        private const val PERMISSION_REQUEST_ACCESS_LOCATION = 50//??
-
+        private const val PERMISSION_REQUEST_ACCESS_LOCATION = 50// не имеет значения какое число
         fun newInstance() = WeatherFragment()
     }
 }

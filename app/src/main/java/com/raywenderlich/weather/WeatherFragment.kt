@@ -219,7 +219,10 @@ class WeatherFragment : Fragment() {
                 showSnackBar(getString(R.string.fragment_weather_my_location))
             }
             tvChangeCity.setOnClickListener {
-                CityFragment.newInstance()
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .add(R.id.container,CityFragment.newInstance(), CityFragment.TAG)
+                    .addToBackStack(null)
+                    .commit()
             }
         }
     }

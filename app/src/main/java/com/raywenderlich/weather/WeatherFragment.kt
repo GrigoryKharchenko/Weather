@@ -27,7 +27,6 @@ import com.raywenderlich.weather.databinding.FragmentWeatherBinding
 class WeatherFragment : Fragment() {
     private var binding: FragmentWeatherBinding? = null
     private val viewModel: WeatherViewModel by viewModels()
-
     //клиент службы определения местооположения
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
@@ -101,7 +100,7 @@ class WeatherFragment : Fragment() {
     private fun isLocationEnabled(): Boolean {
         // LocationManager этот класс предоставляет доступ к системным службам определения местоположения
         val locationManager: LocationManager =
-            //as преобброзовывает типы в данном случае к типу LocationManager
+            //as преоброзовывает типы в данном случае к типу LocationManager
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         //вернуть
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
@@ -201,20 +200,24 @@ class WeatherFragment : Fragment() {
             rbCelsius.setOnClickListener {
                 // вызывается метоод showSnackBar с параметром типа стринг
                 showSnackBar("C")
-                tvValueTemperature.text = viewModel.weatherLiveData.value?.main?.let { it1 ->
+                tvValueTemperature.text = viewModel.weatherLiveData.value?.main?.let { weather ->
                     ConvertTemperature.convertInCelsius(
-                        it1.temp
+                        weather.temp
                     ).toString()
                 }
             }
             rbFahrenheit.setOnClickListener {
                 showSnackBar("F")
                 tvValueTemperature.text =
-                    ConvertTemperature.convertInFahrenheit(viewModel.weatherLiveData.value?.main!!.temp)
-                        .toString()
+                    viewModel.weatherLiveData.value?.main?.let { weather ->
+                        ConvertTemperature.convertInFahrenheit(weather.temp)
+                            .toString()
+                    }
             }
             tvMyLocation.setOnClickListener {
                 showSnackBar(getString(R.string.fragment_weather_my_location))
+            }
+            tvChangeCity.setOnClickListener {
             }
         }
     }

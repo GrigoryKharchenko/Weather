@@ -1,4 +1,6 @@
-package com.raywenderlich.weather.data
+package com.raywenderlich.weather.city
+
+import com.raywenderlich.weather.city.City
 
 class ListCity() {
     fun getCity():List<City> =

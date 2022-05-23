@@ -1,4 +1,4 @@
-package com.raywenderlich.weather.data
+package com.raywenderlich.weather.city
 
 data class City(
     val lat: Double,

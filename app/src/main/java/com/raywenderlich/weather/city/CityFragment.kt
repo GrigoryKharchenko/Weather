@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.raywenderlich.weather.databinding.FragmentCustomDialogBinding
 
-class CityFragment:Fragment() {
-    private var binding:FragmentCustomDialogBinding? = null
+class CityFragment : Fragment() {
+    private var binding: FragmentCustomDialogBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,15 +22,16 @@ class CityFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel:CityViewModel by viewModels()
+        val viewModel: CityViewModel by viewModels()
         viewModel.loadCites()
 
-        viewModel.citesLiveData.observe(viewLifecycleOwner){
+        viewModel.citesLiveData.observe(viewLifecycleOwner) {
             binding?.listCity?.adapter = CityAdapter(it)
         }
     }
-    companion object{
-        const val TAG ="FragmentCity"
+
+    companion object {
+        const val TAG = "FragmentCity"
 
         fun newInstance() = CityFragment()
     }

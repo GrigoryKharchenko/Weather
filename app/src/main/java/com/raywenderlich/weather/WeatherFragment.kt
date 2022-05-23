@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
+import com.raywenderlich.weather.city.CityFragment
 import com.raywenderlich.weather.data.ConvertTemperature
 import com.raywenderlich.weather.data.WeatherResponse
 import com.raywenderlich.weather.databinding.FragmentWeatherBinding
@@ -218,6 +219,7 @@ class WeatherFragment : Fragment() {
                 showSnackBar(getString(R.string.fragment_weather_my_location))
             }
             tvChangeCity.setOnClickListener {
+                CityFragment.newInstance()
             }
         }
     }

@@ -24,6 +24,7 @@ interface ApiInterface {
     companion object {
         //значение известно во время компиляции
         private const val BASE_URL = "http://api.openweathermap.org/"
+
         // метод c типом ApiInterface
         fun create(): ApiInterface {
             //создается неизменяемый объект
@@ -38,6 +39,7 @@ interface ApiInterface {
             // воозвращает готовый ретрофит
             return retrofit.create(ApiInterface::class.java)
         }
+
         //предоставление для okhttp
         private fun provideOkHttpClient(): OkHttpClient {
             val interceptor = HttpLoggingInterceptor()

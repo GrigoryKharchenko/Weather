@@ -11,6 +11,7 @@ import retrofit2.Response
 class WeatherViewModel : BaseViewModel() {
     // изменяемый список который берет данные из WeatherResponse
     val weatherLiveData = MutableLiveData<WeatherResponse>()
+
     //метод с параметрами долготы и широты
     fun getWeather(lon: Float, lan: Float) {
         // реализация интерфейса которому передаются 2 параметра

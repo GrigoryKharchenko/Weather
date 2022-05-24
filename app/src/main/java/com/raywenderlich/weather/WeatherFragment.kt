@@ -198,9 +198,11 @@ class WeatherFragment : Fragment() {
     //обявление метода без параметров с возвращаемым значением Unit
     private fun initOnClicks() {
         binding?.run {
+            //по нажатию радио батона
             rbCelsius.setOnClickListener {
                 // вызывается метоод showSnackBar с параметром типа стринг
-                showSnackBar("C")
+//                showSnackBar("C")
+                // текст вью = равняется значению перевода температуры
                 tvValueTemperature.text = viewModel.weatherLiveData.value?.main?.let { weather ->
                     ConvertTemperature.convertInCelsius(
                         weather.temp
@@ -208,7 +210,7 @@ class WeatherFragment : Fragment() {
                 }
             }
             rbFahrenheit.setOnClickListener {
-                showSnackBar("F")
+//                showSnackBar("F")
                 tvValueTemperature.text =
                     viewModel.weatherLiveData.value?.main?.let { weather ->
                         ConvertTemperature.convertInFahrenheit(weather.temp)
@@ -216,7 +218,8 @@ class WeatherFragment : Fragment() {
                     }
             }
             tvMyLocation.setOnClickListener {
-                showSnackBar(getString(R.string.fragment_weather_my_location))
+
+                viewModel.weatherLiveData.value?.let { name -> showSnackBar(name.name) }
             }
             tvChangeCity.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()

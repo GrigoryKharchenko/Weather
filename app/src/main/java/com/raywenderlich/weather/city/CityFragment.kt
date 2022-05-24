@@ -1,6 +1,8 @@
 package com.raywenderlich.weather.city
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,13 @@ import com.raywenderlich.weather.databinding.FragmentCustomDialogBinding
 class CityFragment : Fragment() {
     private var binding: FragmentCustomDialogBinding? = null
 
+    private val viewModel: CityViewModel by viewModels()
+
+    private val adapter by lazy {
+        CityAdapter(choseCity = ::cites)
+    }
+
+    //часть фрагмента,которая пишется всегда
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -20,14 +29,21 @@ class CityFragment : Fragment() {
         return binding?.root
     }
 
+    //часть фрагмента,которая пишется всегда
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel: CityViewModel by viewModels()
         viewModel.loadCites()
+        binding?.rvListCity?.adapter = adapter
 
         viewModel.citesLiveData.observe(viewLifecycleOwner) {
-            binding?.listCity?.adapter = CityAdapter(it)
+            adapter.cites = it
+            adapter.notifyDataSetChanged()
         }
+    }
+
+    private fun cites(cites: String) {
+        Log.d("city", cites)
     }
 
     companion object {

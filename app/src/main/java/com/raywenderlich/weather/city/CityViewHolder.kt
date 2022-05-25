@@ -12,7 +12,7 @@ class CityViewHolder(private val binding: ItemCityBinding) :
         binding.tvNameCity.text = city
         //binding.root обозначет что обращяемся ко всему представлению и делаю его весь кликабельный
         binding.root.setOnClickListener {
-            choseCity.invoke(city)
+            choseCity(city)
         }
     }
 }

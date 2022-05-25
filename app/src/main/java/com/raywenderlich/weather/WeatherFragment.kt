@@ -12,7 +12,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,13 +23,15 @@ import com.raywenderlich.weather.city.CityFragment
 import com.raywenderlich.weather.data.ConvertTemperature
 import com.raywenderlich.weather.data.WeatherResponse
 import com.raywenderlich.weather.databinding.FragmentWeatherBinding
+import com.raywenderlich.weather.location.Network.DEFOULT
+import com.raywenderlich.weather.location.Network.ERROR
 
 class WeatherFragment : Fragment() {
     private var binding: FragmentWeatherBinding? = null
     private val viewModel: WeatherViewModel by viewModels()
 
     //клиент службы определения местооположения
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private var fusedLocationProviderClient: FusedLocationProviderClient? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,52 +50,50 @@ class WeatherFragment : Fragment() {
         //если выполняется проверка разрешений
         if (checkPermission()) {
             //если GPS включен на телефоне то выполняется
-            if (isLocationEnabled()) {
-                if (ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) !=
-                    PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    requestPermission()
-                    return
-                }
-                //запрос на последнее местоположение,затем возвращает значение в данном случае task
-                // это значение можно использовать для получения локации объекта
-                fusedLocationProviderClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
-                    val location: Location? = task.result
-                    //прооверяет если лоокация равна налу то выводится Null
-                    if (location == null) {
-                        Toast.makeText(requireContext(), "Null", Toast.LENGTH_SHORT).show()
-                        //иначе вывоодится Get
-                    } else {
-                        Toast.makeText(requireContext(), "Get", Toast.LENGTH_SHORT).show()
-
-                        Log.d("Long", "location = ${location.latitude}")
-                        Log.d("Long", "long = ${location.longitude}")
-                        //обращается к экземляру класса WeatherViewModel
-                        //затем обращение к методу который передает долготу и широту
-                        viewModel.getWeather(
-                            location.longitude.toFloat(),
-                            location.latitude.toFloat()
-                        )
-                    }
-                }
-                //если GPS выключен
-            } else {
-                //отоброжается Включите GPS
-                Toast.makeText(requireContext(), "Turn on location", Toast.LENGTH_SHORT).show()
-                //вызывает настройки для активации локации
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
-            }
+            requestLocation()
             //если разрешения нет
         } else {
             //то запрашиваются разрешения
             requestPermission()
+        }
+    }
+
+    private fun requestLocation() {
+        if (isLocationEnabled()) {
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermission()
+                return
+            }
+            //запрос на последнее местоположение,затем возвращает значение в данном случае task
+            // это значение можно использовать для получения локации объекта
+            fusedLocationProviderClient?.lastLocation?.addOnCompleteListener(requireActivity()) { task ->
+                val location: Location? = task.result
+                //прооверяет если лоокация равна налу то выводится Null
+                if (location == null)
+                else {
+                    Log.d("Long", "location = ${location.latitude}")
+                    Log.d("Long", "long = ${location.longitude}")
+                    //обращается к экземляру класса WeatherViewModel
+                    //затем обращение к методу который передает долготу и широту
+                    viewModel.getWeather(
+                        location.longitude.toFloat(),
+                        location.latitude.toFloat()
+                    )
+                }
+            }
+            //если GPS выключен
+        } else {
+            //вызывает настройки для активации локации
+            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivity(intent)
         }
     }
 
@@ -151,10 +150,7 @@ class WeatherFragment : Fragment() {
         //если
         if (requestCode == PERMISSION_REQUEST_ACCESS_LOCATION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(requireContext(), "Granted", Toast.LENGTH_SHORT).show()
                 getCurrentLocation()
-            } else {
-                Toast.makeText(requireContext(), "Denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -162,9 +158,20 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initOnClicks()
-        //подписываюсь на обновление данных 
+        //подписываюсь на обновление данных
+        viewModel.failLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                DEFOULT -> {
+                    // ignore
+                }
+                ERROR ->
+                    Snackbar.make(requireView(), ERROR_MSG, Snackbar.LENGTH_SHORT).show()
+                else -> {
+
+                }
+            }
+        }
         viewModel.weatherLiveData.observe(viewLifecycleOwner) {
-            Log.d("Message", "fdcgxrdgrdgd")
             setData(it)
         }
     }
@@ -201,8 +208,6 @@ class WeatherFragment : Fragment() {
         binding?.run {
             //по нажатию радио батона
             rbCelsius.setOnClickListener {
-                // вызывается метоод showSnackBar с параметром типа стринг
-//                showSnackBar("C")
                 // текст вью = равняется значению перевода температуры
                 tvValueTemperature.text = viewModel.weatherLiveData.value?.main?.let { weather ->
                     ConvertTemperature.convertInCelsius(
@@ -211,7 +216,6 @@ class WeatherFragment : Fragment() {
                 }
             }
             rbFahrenheit.setOnClickListener {
-//                showSnackBar("F")
                 tvValueTemperature.text =
                     viewModel.weatherLiveData.value?.main?.let { weather ->
                         ConvertTemperature.convertInFahrenheit(weather.temp)
@@ -233,6 +237,7 @@ class WeatherFragment : Fragment() {
 
     companion object {
         const val TAG = "WeatherFragment"
+        private const val ERROR_MSG = "Произошла ошибка.Повторите позже"
         private const val PERMISSION_REQUEST_ACCESS_LOCATION = 50// не имеет значения какое число
         fun newInstance() = WeatherFragment()
     }

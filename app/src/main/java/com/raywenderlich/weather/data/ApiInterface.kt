@@ -17,7 +17,7 @@ interface ApiInterface {
         //сколько Query столько параметров отправляю
         @Query("lat") lat: Float,
         @Query("lon") lon: Float,
-        @Query("lang") lang: String = "ru"
+        @Query("lang") lang: String = "ru",
         // запросы в классе Call с типом WeatherResponse
     ): Call<WeatherResponse>
 

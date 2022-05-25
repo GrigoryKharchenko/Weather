@@ -43,7 +43,6 @@ class CityFragment : Fragment() {
     }
 
     private fun cites(cites: String) {
-        Log.d("city", cites)
     }
 
     companion object {

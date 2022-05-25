@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 interface ApiInterface {
     //запрашиваю данные с ресурса
-    @GET("data/2.5/weather?appid=b021ca9525ae87d6f27e414354290f9f")
+    @GET("data/2.5/weather?appid=b021ca9525ae87d6f27e414354290f9f") //TODO хотя бы в константу луяше в gradle
     fun getWeather(
         //сколько Query столько параметров отправляю
         @Query("lat") lat: Float,

@@ -2,6 +2,7 @@ package com.raywenderlich.weather.data
 
 import com.google.gson.annotations.SerializedName
 
+// TODO названия во всем файле поменять на нормальные
 // парсинг данных из json
 data class WeatherResponse(
     @SerializedName("coord") val coord: CoordResponse,
@@ -34,7 +35,7 @@ data class Main(
     @SerializedName("pressure") val pressure: Double,
     @SerializedName("humidity") val humidity: Int,
     @SerializedName("temp_min") val temp_min: Double,
-    @SerializedName("temp_max") val temp_max: Double,
+    @SerializedName("temp_max") val temp_max: Double, // TODO code style
     @SerializedName("sea_level") val sea_level: Double,
     @SerializedName("grnd_level") val grnd_level: Double,
 )

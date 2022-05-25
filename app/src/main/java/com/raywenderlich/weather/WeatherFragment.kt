@@ -28,6 +28,7 @@ import com.raywenderlich.weather.databinding.FragmentWeatherBinding
 class WeatherFragment : Fragment() {
     private var binding: FragmentWeatherBinding? = null
     private val viewModel: WeatherViewModel by viewModels()
+
     //клиент службы определения местооположения
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
@@ -175,7 +176,7 @@ class WeatherFragment : Fragment() {
             tvValueChanceRain.text =
                 getString(R.string.fragment_weather_value_chance_rain, value.clouds.all.toString())
             tvValuePressure.text =
-                getString(R.string.fragment_weather_value_pressure, value.main.pressure)
+                getString(R.string.fragment_weather_value_pressure, value.main.pressure - 253)
             tvValueWind.text =
                 getString(R.string.fragment_weather_value_wind, value.wind.speed.toString())
             tvCity.text = value.name
@@ -223,7 +224,7 @@ class WeatherFragment : Fragment() {
             }
             tvChangeCity.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .add(R.id.container,CityFragment.newInstance(), CityFragment.TAG)
+                    .add(R.id.container, CityFragment.newInstance(), CityFragment.TAG)
                     .addToBackStack(null)
                     .commit()
             }

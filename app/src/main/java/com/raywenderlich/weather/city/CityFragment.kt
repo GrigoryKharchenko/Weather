@@ -30,15 +30,15 @@ class CityFragment : Fragment() {
     }
 
     //часть фрагмента,которая пишется всегда
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged") // TODO что за?
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadCites()
+        viewModel.loadCites() // TODO в viewModel в init
         binding?.rvListCity?.adapter = adapter
 
         viewModel.citesLiveData.observe(viewLifecycleOwner) {
             adapter.cites = it
-            adapter.notifyDataSetChanged()
+            adapter.notifyDataSetChanged() // TODO переделать, использовать notifyDataSetChanged нельзя! Используй DiffUtil
         }
     }
 

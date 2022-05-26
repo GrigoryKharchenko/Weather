@@ -13,7 +13,7 @@ class CityFragment : Fragment() {
     private var binding: FragmentCustomDialogBinding? = null
     private val viewModel: CityViewModel by viewModels()
     private val adapter by lazy {
-        CityAdapter(choseCity = ::cites)
+        CityAdapter(choseCity = ::choseCitesAdapter)
     }
 
     //часть фрагмента,которая пишется всегда
@@ -31,18 +31,21 @@ class CityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadCites() // TODO в viewModel в init
-        binding?.rvListCity?.adapter = adapter
-        // по нажатию на иконку стрелочки возвращается к предыдущему фрагменту
-        binding?.toolBar?.setNavigationOnClickListener {
-            parentFragmentManager.popBackStack()
+        binding?.run {
+            rvListCity.adapter = adapter
+            // по нажатию на иконку стрелочки возвращается к предыдущему фрагменту
+            toolBar.setNavigationOnClickListener {
+                parentFragmentManager.popBackStack()
+            }
         }
+
         viewModel.citesLiveData.observe(viewLifecycleOwner) {
             adapter.cites = it
             adapter.notifyDataSetChanged() // TODO переделать, использовать notifyDataSetChanged нельзя! Используй DiffUtil
         }
     }
 
-    private fun cites(cites: String) {
+    private fun choseCitesAdapter(cites: String) {
     }
 
     companion object {

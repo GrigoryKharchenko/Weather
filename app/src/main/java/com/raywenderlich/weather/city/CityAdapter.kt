@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.raywenderlich.weather.databinding.ItemCityBinding
 
+//adapter занимается созданием и управлением ViewHolder
 class CityAdapter(
     private val choseCity: (String) -> Unit,
 ) :
@@ -14,15 +15,17 @@ class CityAdapter(
     //параметры будут всегда такие же, а возращаемый тип ViewHolder
     var cites: List<String> = listOf()
 
+    //метод вызывается для создания объекта ViewHolder,
+// в конструктор которого необходимо передать созданный View-компонент
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
         val itemView = ItemCityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CityViewHolder(itemView)
     }
 
-    //связываются используеые текстовые метки с данными,
+    //связываются используемые текстовые метки с данными,
     // параметр position отвечает за позицию в списке по которой можно получить нужные данные
+    //управлнеи viewHolder
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
-        holder.bind(cites[position], choseCity)
     }
 
     // возвращает количсетво элементов списка

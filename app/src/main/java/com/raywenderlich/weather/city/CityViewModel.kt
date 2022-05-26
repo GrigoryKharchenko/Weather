@@ -6,13 +6,11 @@ import com.raywenderlich.weather.BaseViewModel
 
 class CityViewModel : BaseViewModel() {
     //изменяемое хранилище данных в который будет помещен список из стрингов
-    private val cites = MutableLiveData<List<String>>()
-
-    //хранилище данных со списком стрингов
-    val citesLiveData: LiveData<List<String>> = cites
+    val citesLiveData = MutableLiveData<List<City>>()
 
     //метод котоырй задает значения для списка
     fun loadCites() {
-        cites.value = listOf("Омск", "Москва", "Сочи", "Новосибирск", "Краснодар", "Тюмень")
+        val citesRepository = CitesRepository()
+        citesLiveData.value = citesRepository.getCity()
     }
 }

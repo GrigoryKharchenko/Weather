@@ -1,6 +1,6 @@
 package com.raywenderlich.weather.city
 
-class ListCity() {
+class CitesRepository() {
     fun getCity(): List<City> =
         listOf(
             City(54.950443, 73.424466, "Омск"),

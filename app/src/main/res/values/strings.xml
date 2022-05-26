@@ -20,6 +20,7 @@
     <string name="fragment_weather_f">F</string>
     <string name="fragment_weather_temperature">%1$s</string>
     <string name="fragment_weather">%1$s</string>
+    <string name="list_cites">Список городов</string>
     <!--    fragment_weather-->
 
 </resources>

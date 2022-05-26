@@ -8,7 +8,6 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +22,6 @@ import com.raywenderlich.weather.city.CityFragment
 import com.raywenderlich.weather.data.ConvertTemperature
 import com.raywenderlich.weather.data.WeatherResponse
 import com.raywenderlich.weather.databinding.FragmentWeatherBinding
-import com.raywenderlich.weather.location.Network.DEFOULT
-import com.raywenderlich.weather.location.Network.ERROR
 
 class WeatherFragment : Fragment() {
     private var binding: FragmentWeatherBinding? = null
@@ -79,8 +76,6 @@ class WeatherFragment : Fragment() {
                 //прооверяет если лоокация равна налу то выводится Null
                 if (location == null)
                 else {
-                    Log.d("Long", "location = ${location.latitude}")
-                    Log.d("Long", "long = ${location.longitude}")
                     //обращается к экземляру класса WeatherViewModel
                     //затем обращение к методу который передает долготу и широту
                     viewModel.getWeather(
@@ -159,20 +154,11 @@ class WeatherFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initOnClicks()
         //подписываюсь на обновление данных
-        viewModel.failLiveData.observe(viewLifecycleOwner) {
-            when (it) {
-                DEFOULT -> {
-                    // ignore
-                }
-                ERROR ->
-                    Snackbar.make(requireView(), ERROR_MSG, Snackbar.LENGTH_SHORT).show()
-                else -> {
-
-                }
-            }
+        viewModel.failLiveData.observe(viewLifecycleOwner) { error ->
+            Snackbar.make(requireView(), error, Snackbar.LENGTH_SHORT).show()
         }
-        viewModel.weatherLiveData.observe(viewLifecycleOwner) {
-            setData(it)
+        viewModel.weatherLiveData.observe(viewLifecycleOwner) { weatherResponse ->
+            setData(weatherResponse)
         }
     }
 
@@ -191,6 +177,7 @@ class WeatherFragment : Fragment() {
                 ConvertTemperature.convertInFahrenheit(viewModel.weatherLiveData.value?.main!!.temp)
                     .toString()
             tvWeather.text = value.weather[0].description
+            pbCircle.visibility = View.GONE
             Glide.with(iBtnCloudy)
                 .load("http://openweathermap.org/img/wn/${value.weather[0].icon}@2x.png")
                 .into(iBtnCloudy)
@@ -223,13 +210,13 @@ class WeatherFragment : Fragment() {
                     }
             }
             tvMyLocation.setOnClickListener {
-
                 viewModel.weatherLiveData.value?.let { name -> showSnackBar(name.name) }
             }
+            //по нажатию переходит во фрагмент со списком городов
             tvChangeCity.setOnClickListener {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .add(R.id.container, CityFragment.newInstance(), CityFragment.TAG)
-                    .addToBackStack(null)
+                parentFragmentManager.beginTransaction()
+                    .add(R.id.container, CityFragment.newInstance(), TAG)
+                    .addToBackStack("test")
                     .commit()
             }
         }
@@ -237,7 +224,6 @@ class WeatherFragment : Fragment() {
 
     companion object {
         const val TAG = "WeatherFragment"
-        private const val ERROR_MSG = "Произошла ошибка.Повторите позже"
         private const val PERMISSION_REQUEST_ACCESS_LOCATION = 50// не имеет значения какое число
         fun newInstance() = WeatherFragment()
     }

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 interface ApiInterface {
     //запрашиваю данные с ресурса
-    @GET("data/2.5/weather?appid=b021ca9525ae87d6f27e414354290f9f") //TODO хотя бы в константу луяше в gradle
+    @GET("data/2.5/weather?appid=${APPID}")
     fun getWeather(
         //сколько Query столько параметров отправляю
         @Query("lat") lat: Float,
@@ -24,6 +24,7 @@ interface ApiInterface {
     companion object {
         //значение известно во время компиляции
         private const val BASE_URL = "http://api.openweathermap.org/"
+        private const val APPID = "b021ca9525ae87d6f27e414354290f9f"
 
         // метод c типом ApiInterface
         fun create(): ApiInterface {
@@ -46,7 +47,7 @@ interface ApiInterface {
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             val client = OkHttpClient().newBuilder()
                 //время ожидания соединения период времени, в течение которого должно установиться соединение с целевым хостом
-                .connectTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS)
                 //Тайм-аут чтения применяется с момента успешного установления соединения между клиентом и целевым хостом.
                 //Он определяет максимальное время бездействия между двумя пакетами данных при ожидании ответа сервера
                 .readTimeout(90, TimeUnit.SECONDS)

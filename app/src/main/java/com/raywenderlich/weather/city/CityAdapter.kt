@@ -12,11 +12,9 @@ class CityAdapter(
     RecyclerView.Adapter<CityViewHolder>() {
     //3 метода который всегоа переопредяеются в адаптаре
     //параметры будут всегда такие же, а возращаемый тип ViewHolder
-
     var cites: List<String> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
-
         val itemView = ItemCityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CityViewHolder(itemView)
     }

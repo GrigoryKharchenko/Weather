@@ -2,7 +2,6 @@ package com.raywenderlich.weather.city
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,7 @@ import com.raywenderlich.weather.databinding.FragmentCustomDialogBinding
 
 class CityFragment : Fragment() {
     private var binding: FragmentCustomDialogBinding? = null
-
     private val viewModel: CityViewModel by viewModels()
-
     private val adapter by lazy {
         CityAdapter(choseCity = ::cites)
     }
@@ -35,7 +32,10 @@ class CityFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadCites() // TODO в viewModel в init
         binding?.rvListCity?.adapter = adapter
-
+        // по нажатию на иконку стрелочки возвращается к предыдущему фрагменту
+        binding?.toolBar?.setNavigationOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
         viewModel.citesLiveData.observe(viewLifecycleOwner) {
             adapter.cites = it
             adapter.notifyDataSetChanged() // TODO переделать, использовать notifyDataSetChanged нельзя! Используй DiffUtil
@@ -46,7 +46,6 @@ class CityFragment : Fragment() {
     }
 
     companion object {
-        const val TAG = "FragmentCity"
 
         fun newInstance() = CityFragment()
     }

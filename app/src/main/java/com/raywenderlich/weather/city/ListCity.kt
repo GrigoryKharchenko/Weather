@@ -1,6 +1,5 @@
 package com.raywenderlich.weather.city
 
-// TODO в Repository
 class ListCity() {
     fun getCity(): List<City> =
         listOf(

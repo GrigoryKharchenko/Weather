@@ -1,6 +1,5 @@
 package com.raywenderlich.weather.city
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.raywenderlich.weather.BaseViewModel
 

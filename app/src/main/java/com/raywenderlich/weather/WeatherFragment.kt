@@ -174,8 +174,10 @@ class WeatherFragment : Fragment() {
                 getString(R.string.fragment_weather_value_wind, value.wind.speed.toString())
             tvCity.text = value.name
             tvValueTemperature.text =
-                ConvertTemperature.convertInFahrenheit(viewModel.weatherLiveData.value?.main!!.temp)
-                    .toString()
+                viewModel.weatherLiveData.value?.main?.let {
+                    ConvertTemperature.convertInFahrenheit(it.temp)
+                        .toString()
+                }
             tvWeather.text = value.weather[0].description
             pbCircle.visibility = View.GONE
             Glide.with(iBtnCloudy)

@@ -12,9 +12,8 @@ import com.raywenderlich.weather.databinding.FragmentCustomDialogBinding
 class CityFragment : Fragment() {
     private var binding: FragmentCustomDialogBinding? = null
     private val viewModel: CityViewModel by viewModels()
-    private val adapter by lazy {
-        CityAdapter(choseCity = ::choseCitesAdapter)
-    }
+    private val adapter: CityAdapter = CityAdapter(onClick = { city ->
+    })
 
     //часть фрагмента,которая пишется всегда
     override fun onCreateView(
@@ -39,14 +38,12 @@ class CityFragment : Fragment() {
             }
         }
 
-        viewModel.citesLiveData.observe(viewLifecycleOwner) {
-            adapter.cites = it
+        viewModel.citesLiveData.observe(viewLifecycleOwner) { listCity ->
+            adapter.cites = listCity
             adapter.notifyDataSetChanged() // TODO переделать, использовать notifyDataSetChanged нельзя! Используй DiffUtil
         }
     }
 
-    private fun choseCitesAdapter(cites: String) {
-    }
 
     companion object {
 

@@ -9,11 +9,11 @@ class CityViewHolder(private val binding: ItemCityBinding) :
 //описывает представление элемента и метаднные о его месте RecycleView
     RecyclerView.ViewHolder(binding.root) {
     //метод с 2 параметрами сити типа стринг и лямбда выражение
-    fun bind(city: City, choseCity: (City) -> Unit) {
-        binding.tvNameCity.text = city
-        //binding.root обозначет что обращяемся ко всему представлению и делаю его весь кликабельный
-        binding.root.setOnClickListener {
-            choseCity(city)
+        fun bind(city:City,onClick:(City) -> Unit){
+            binding.run {
+                tvLon.text = city.lon.toString()
+                tvLat.text = city.lat.toString()
+                tvNameCity.text = city.name
+            }
         }
-    }
 }

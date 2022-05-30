@@ -15,8 +15,9 @@ class WeatherViewModel : BaseViewModel() {
     //метод с параметрами долготы и широты
     fun getWeather(lon: Float, lan: Float) {
         // реализация интерфейса которому передаются 2 параметра
-        val apiInterface = ApiInterface.create().getWeather(lat = lan, lon = lon)
+        val apiInterface = ApiInterface.createApi().getWeather(lat = lan, lon = lon)
         apiInterface.enqueue(object : Callback<WeatherResponse> {
+            // при ответе
             override fun onResponse(
                 call: Call<WeatherResponse>?,
                 response: Response<WeatherResponse>?
@@ -25,9 +26,10 @@ class WeatherViewModel : BaseViewModel() {
                     weatherLiveData.value = response.body()
                 }
             }
-
+            //при отказе
             override fun onFailure(call: Call<WeatherResponse>?, t: Throwable?) {
                 failLiveData.value = t?.localizedMessage
+
             }
         })
     }

@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_arrow_back_white"
-            app:title="@string/list_cites"
+            app:title="@string/fragment_city_list_cites"
             app:titleCentered="true"/>
 
     </com.google.android.material.appbar.AppBarLayout>

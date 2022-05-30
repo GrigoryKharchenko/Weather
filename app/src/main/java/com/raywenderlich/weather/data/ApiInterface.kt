@@ -17,7 +17,7 @@ interface ApiInterface {
         //сколько Query столько параметров отправляю
         @Query("lat") lat: Float,
         @Query("lon") lon: Float,
-        @Query("lang") lang: String = "ru",
+        @Query("lang") lang: String = "ru"
         // запросы в классе Call с типом WeatherResponse
     ): Call<WeatherResponse>
 
@@ -27,12 +27,11 @@ interface ApiInterface {
         private const val APPID = "b021ca9525ae87d6f27e414354290f9f"
 
         // метод c типом ApiInterface
-        fun create(): ApiInterface {
+        fun createApi(): ApiInterface {
             //создается неизменяемый объект
             val retrofit = Retrofit.Builder()
                 //добавляется конвертер(какой конвертер.создать)
                 .addConverterFactory(GsonConverterFactory.create())
-                //
                 .client(provideOkHttpClient())
                 //базовый юрл
                 .baseUrl(BASE_URL)
@@ -50,9 +49,9 @@ interface ApiInterface {
                 .connectTimeout(15, TimeUnit.SECONDS)
                 //Тайм-аут чтения применяется с момента успешного установления соединения между клиентом и целевым хостом.
                 //Он определяет максимальное время бездействия между двумя пакетами данных при ожидании ответа сервера
-                .readTimeout(90, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
                 //Тайм-аут записи определяет максимальное время бездействия между двумя пакетами данных при отправке запроса на сервер.
-                .writeTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
             //если функция, позволяющая запускать некоторый код только в режиме debug
             if (BuildConfig.DEBUG) {
                 //добавление перехватчика

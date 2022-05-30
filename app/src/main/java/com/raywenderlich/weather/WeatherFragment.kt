@@ -42,6 +42,18 @@ class WeatherFragment : Fragment() {
         return binding?.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initOnClicks()
+        //подписываюсь на обновление данных
+        viewModel.failLiveData.observe(viewLifecycleOwner) { error ->
+            Snackbar.make(requireView(), error, Snackbar.LENGTH_SHORT).show()
+        }
+        viewModel.weatherLiveData.observe(viewLifecycleOwner) { weatherResponse ->
+            setData(weatherResponse)
+        }
+    }
+
     // получение текущего местоопооложения
     private fun getCurrentLocation() {
         //если выполняется проверка разрешений
@@ -74,8 +86,7 @@ class WeatherFragment : Fragment() {
             fusedLocationProviderClient?.lastLocation?.addOnCompleteListener(requireActivity()) { task ->
                 val location: Location? = task.result
                 //прооверяет если лоокация равна налу то выводится Null
-                if (location == null)
-                else {
+                if (location != null) {
                     //обращается к экземляру класса WeatherViewModel
                     //затем обращение к методу который передает долготу и широту
                     viewModel.getWeather(
@@ -147,18 +158,6 @@ class WeatherFragment : Fragment() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getCurrentLocation()
             }
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initOnClicks()
-        //подписываюсь на обновление данных
-        viewModel.failLiveData.observe(viewLifecycleOwner) { error ->
-            Snackbar.make(requireView(), error, Snackbar.LENGTH_SHORT).show()
-        }
-        viewModel.weatherLiveData.observe(viewLifecycleOwner) { weatherResponse ->
-            setData(weatherResponse)
         }
     }
 

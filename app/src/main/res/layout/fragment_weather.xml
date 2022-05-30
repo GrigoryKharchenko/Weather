@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_blue">
@@ -87,7 +88,7 @@
         android:gravity="center"
         android:text="@string/fragment_weather_my_location"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/tvChangeCity"
+        app:layout_constraintBottom_toBottomOf="@id/tvChangeCity"
         app:layout_constraintEnd_toEndOf="@id/toggle"
         app:layout_constraintTop_toTopOf="@id/tvChangeCity" />
 
@@ -125,20 +126,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/iBtnCloudy"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tvValueTemperature"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_cloudy" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvValueTemperature"
@@ -147,17 +148,21 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="16dp"
+        android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="@id/iBtnCloudy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iBtnCloudy"
         app:layout_constraintTop_toTopOf="@id/iBtnCloudy"
-        tools:text="14" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="14.0" />
 
     <TextView
         android:id="@+id/tvWeather"
-        style="@style/TextWhite.Big"
-        android:layout_width="wrap_content"
+        style="@style/TextWhite.Small"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvValueTemperature"
@@ -177,11 +182,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvValueChanceRain"
+            app:layout_constraintBottom_toBottomOf="@id/tvValueChanceRain"
             app:layout_constraintEnd_toStartOf="@id/tvValueChanceRain"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvValueChanceRain"
-            tools:text="60%" />
+            tools:text="%" />
 
         <TextView
             android:id="@+id/tvHumidity"
@@ -191,10 +196,10 @@
             android:layout_marginStart="24dp"
             android:layout_marginBottom="4dp"
             android:text="@string/fragment_weather_humidity"
-            app:layout_constraintBottom_toTopOf="@+id/tvValueHumidity"
+            app:layout_constraintBottom_toTopOf="@id/tvValueHumidity"
             app:layout_constraintEnd_toStartOf="@id/tvChanceRain"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvChanceRain" />
+            app:layout_constraintTop_toTopOf="@id/tvChanceRain" />
 
         <TextView
             android:id="@+id/tvValueChanceRain"
@@ -203,7 +208,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tvChanceRain"
             app:layout_constraintStart_toStartOf="@id/tvChanceRain"
             tools:text="10%" />
 
@@ -214,7 +219,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:text="@string/fragment_weather_chance_rain"
-            app:layout_constraintBottom_toTopOf="@+id/tvValueChanceRain"
+            app:layout_constraintBottom_toTopOf="@id/tvValueChanceRain"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
@@ -223,10 +228,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            app:layout_constraintBottom_toBottomOf="@+id/tvValueWind"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tvValueWind"
+            app:layout_constraintEnd_toEndOf="@+id/tvChanceRain"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/tvChanceRain"
-            app:layout_constraintTop_toTopOf="@+id/tvValueWind"
+            app:layout_constraintTop_toTopOf="@id/tvValueWind"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="752 мм рт.ст." />
 
         <TextView
@@ -236,10 +243,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:text="@string/fragment_weather_pressure"
-            app:layout_constraintBottom_toBottomOf="@+id/tvWind"
+            app:layout_constraintBottom_toBottomOf="@id/tvWind"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tvValuePressure"
-            app:layout_constraintTop_toTopOf="@+id/tvWind" />
+            app:layout_constraintTop_toTopOf="@id/tvWind" />
 
         <TextView
             android:id="@+id/tvValueWind"
@@ -265,5 +272,18 @@
             app:layout_constraintBottom_toTopOf="@id/tvValueWind"
             app:layout_constraintEnd_toStartOf="@id/tvPressure"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/pbCircle"
+        style="@style/CircularProgress"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
